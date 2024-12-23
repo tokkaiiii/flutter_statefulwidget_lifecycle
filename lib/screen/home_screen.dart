@@ -9,6 +9,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   bool show = false;
+  Color color = Colors.red;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,16 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (show) CodeFactoryWidget(),
+            if (show) GestureDetector(
+              onTap: (){
+                setState(() {
+                  color = color == Colors.blue ? Colors.red : Colors.blue;
+                });
+              },
+              child: CodeFactoryWidget(
+                color: color,
+              ),
+            ),
             SizedBox(
               height: 32.0,
             ),
@@ -39,7 +49,11 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class CodeFactoryWidget extends StatefulWidget {
-  CodeFactoryWidget({super.key}) {
+  final Color color;
+  CodeFactoryWidget({
+    required this.color,
+    super.key
+  }) {
     print('1) Stateful Widget Constructor');
   }
 
@@ -69,7 +83,7 @@ class _CodeFactoryWidgetState extends State<CodeFactoryWidget> {
     return Container(
       width: 50.0,
       height: 50.0,
-      color: Colors.red,
+      color: widget.color,
     );
   }
   @override
